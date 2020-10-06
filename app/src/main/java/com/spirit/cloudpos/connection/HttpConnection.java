@@ -41,6 +41,7 @@ public class HttpConnection {
 
         RequestBody requestBody = RequestBody.create(json, JSON);
         Request request = new Request.Builder()
+                //TODO : url 바꿔야함
                 .url("http://192.168.43.219:8080/test/user/new")
                 .post(requestBody)
                 .build();
