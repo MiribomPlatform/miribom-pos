@@ -1,6 +1,6 @@
-package com.spirit.cloudpos.common.connection;
+package com.spirit.cloudpos.common.invoker.callback;
 
-import android.util.Log;
+import com.orhanobut.logger.Logger;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -8,7 +8,6 @@ import java.io.IOException;
 
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.Response;
 
 /**
  * AbstractCallback
@@ -19,9 +18,7 @@ public abstract class AbstractCallback implements Callback {
 
     @Override
     public void onFailure(@NotNull Call call, @NotNull IOException e) {
-        Log.e(TAG, "httpConnection Error - " + e.getMessage(), e);
+        Logger.e(TAG, "httpConnection Error - " + e.getMessage(), e);
+        e.printStackTrace();
     }
-
-    @Override
-    abstract public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException;
 }
