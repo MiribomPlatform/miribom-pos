@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.spirit.cloudpos.connection.HttpConnection;
+import com.spirit.cloudpos.common.connection.HttpConnection;
 import com.spirit.cloudpos.data.RegisterData;
 
 import java.io.IOException;
