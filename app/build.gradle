@@ -30,7 +30,7 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.6'
     // bind
     implementation 'com.jakewharton:butterknife:10.2.3'
-    androidTestImplementation 'org.junit.jupiter:junit-jupiter'
+    androidTestImplementation 'org.junit.jupiter:junit-jupiter-api:5.2.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.3'
     // logger
     implementation 'com.orhanobut:logger:2.2.0'
