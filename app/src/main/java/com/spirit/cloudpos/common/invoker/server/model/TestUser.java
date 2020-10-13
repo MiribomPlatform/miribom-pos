@@ -1,12 +1,18 @@
-package com.spirit.cloudpos.data;
+package com.spirit.cloudpos.common.invoker.server.model;
 
-public class RegisterData {
+/**
+ * @author changwoo.son
+ */
+public class TestUser {
     private String userId;
     private String userName;
     private String mobile;
     private String email;
 
-    public RegisterData(String userId, String userName, String mobile, String email) {
+    public TestUser() {
+    }
+
+    public TestUser(String userId, String userName, String mobile, String email) {
         this.userId = userId;
         this.userName = userName;
         this.mobile = mobile;

@@ -1,8 +1,11 @@
-package com.spirit.cloudpos;
+package com.spirit.cloudpos.pos.activity;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.spirit.cloudpos.R;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -13,6 +16,5 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
         startActivity(intent);
-
     }
 }

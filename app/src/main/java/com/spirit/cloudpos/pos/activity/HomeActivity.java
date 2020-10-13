@@ -1,7 +1,10 @@
-package com.spirit.cloudpos;
+package com.spirit.cloudpos.pos.activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.spirit.cloudpos.R;
 
 public class HomeActivity extends AppCompatActivity {
 
