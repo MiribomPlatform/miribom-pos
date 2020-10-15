@@ -25,6 +25,10 @@ import butterknife.OnClick;
 import okhttp3.Call;
 import okhttp3.Response;
 
+/**
+ * Test User 등록을 위한 Activity
+ * TODO: User 등록을 위한 Activity로 수정 필요
+ */
 public class RegisterActivity extends AppCompatActivity {
     private static final RegisterTestUserCallback registerTestUserCallback = new RegisterTestUserCallback();
 
@@ -32,7 +36,6 @@ public class RegisterActivity extends AppCompatActivity {
     @BindView(R2.id.register_userName) EditText regName_ET;
     @BindView(R2.id.register_userPN) EditText regPN_ET;
     @BindView(R2.id.register_userEmail) EditText regEmail_ET;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

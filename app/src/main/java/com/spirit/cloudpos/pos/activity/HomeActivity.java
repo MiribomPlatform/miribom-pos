@@ -6,6 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.spirit.cloudpos.R;
 
+/**
+ * HomeActivity
+ */
 public class HomeActivity extends AppCompatActivity {
 
     @Override
