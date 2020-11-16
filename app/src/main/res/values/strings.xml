@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">CloudPOS</string>
+    <string name="server_host_url">3.131.136.24:8080</string>
 </resources>

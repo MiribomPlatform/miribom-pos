@@ -3,9 +3,12 @@ package com.spirit.cloudpos.common.invoker.server;
 import com.spirit.cloudpos.common.interceptor.HttpLoggingInterceptor;
 import com.spirit.cloudpos.common.util.GsonUtil;
 
+import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Callback;
+import okhttp3.Headers;
 import okhttp3.HttpUrl;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -19,25 +22,197 @@ public class ServerInvoker {
             .readTimeout(5000, TimeUnit.SECONDS)
             .build();
 
-    public static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
+    public static final MediaType CONTENT_TYPE_JSON = MediaType.get("application/json; charset=utf-8");
 
     private ServerInvoker() {}
 
-    // TODO: invokeGet, invokePut, invokeDelete 생성
+    // get
+    public static void invokeGet(ServerCommand serverCommand, Callback callback) {
+        invokeGet(serverCommand, null, callback);
+    }
 
-    public static void invokePost(ServerCommand serverCommand, Object object, Callback callback) {
+    public static void invokeGet(ServerCommand serverCommand, Map<String, String> queryParams, Callback callback) {
+        invokeGet(serverCommand, queryParams, null, callback);
+    }
+
+    public static void invokeGet(ServerCommand serverCommand, Map<String, String> queryParams, Map<String, String> headerParams, Callback callback) {
         new Thread(() -> {
-            HttpUrl url = HttpUrl.parse("http://192.168.123.100:8080" + serverCommand.getCommand());
+            HttpUrl.Builder urlBuilder = Objects.requireNonNull(HttpUrl.parse("http://3.131.136.24:8080" + serverCommand.getCommand())).newBuilder();
+            if (headerParams != queryParams) {
+                queryParams.forEach(urlBuilder::addQueryParameter);
+            }
+            HttpUrl url = urlBuilder.build();
 
-            String json = GsonUtil.toJsonString(object);
-
-            RequestBody requestBody = RequestBody.create(json, JSON);
-            Request request = new Request.Builder()
+            Request.Builder requestBuilder = new Request.Builder()
                     .url(url)
-                    .post(requestBody)
-                    .build();
+                    .get();
+
+            Request request;
+            if (headerParams != headerParams) {
+                request = requestBuilder
+                        .headers(Headers.of(headerParams))
+                        .build();
+            } else {
+                request = requestBuilder.build();
+            }
 
             client.newCall(request).enqueue(callback);
+
+        }).start();
+    }
+
+
+    // post
+    public static void invokePost(ServerCommand serverCommand, Object body, Callback callback) {
+        invokePost(serverCommand, null, body, callback);
+    }
+
+    public static void invokePost(ServerCommand serverCommand, Map<String, String> queryParams, Object body, Callback callback) {
+        invokePost(serverCommand, queryParams, null, body, callback);
+    }
+
+    public static void invokePost(ServerCommand serverCommand, Map<String, String> queryParams, Map<String, String> headerParams, Object body, Callback callback) {
+        new Thread(() -> {
+            HttpUrl.Builder urlBuilder = Objects.requireNonNull(HttpUrl.parse("http://3.131.136.24:8080" + serverCommand.getCommand())).newBuilder();
+            if (queryParams != null) {
+                queryParams.forEach(urlBuilder::addQueryParameter);
+            }
+            HttpUrl url = urlBuilder.build();
+
+            String json = GsonUtil.toJsonString(body);
+
+            RequestBody requestBody = RequestBody.create(json, CONTENT_TYPE_JSON);
+
+            Request.Builder requestBuilder = new Request.Builder()
+                    .url(url)
+                    .post(requestBody);
+
+            Request request;
+            if (headerParams != null) {
+                request = requestBuilder
+                        .headers(Headers.of(headerParams))
+                        .build();
+            } else {
+                request = requestBuilder.build();
+            }
+
+            client.newCall(request).enqueue(callback);
+
+        }).start();
+    }
+
+
+    // put
+    public static void invokePut(ServerCommand serverCommand, Object body, Callback callback) {
+        invokePut(serverCommand, null, body, callback);
+    }
+
+    public static void invokePut(ServerCommand serverCommand, Map<String, String> queryParams, Object body, Callback callback) {
+        invokePut(serverCommand, queryParams, null, body, callback);
+    }
+
+    public static void invokePut(ServerCommand serverCommand, Map<String, String> queryParams, Map<String, String> headerParams, Object body, Callback callback) {
+        new Thread(() -> {
+            HttpUrl.Builder urlBuilder = Objects.requireNonNull(HttpUrl.parse("http://3.131.136.24:8080" + serverCommand.getCommand())).newBuilder();
+            if (queryParams != null) {
+                queryParams.forEach(urlBuilder::addQueryParameter);
+            }
+            HttpUrl url = urlBuilder.build();
+
+            String json = GsonUtil.toJsonString(body);
+
+            RequestBody requestBody = RequestBody.create(json, CONTENT_TYPE_JSON);
+
+            Request.Builder requestBuilder = new Request.Builder()
+                    .url(url)
+                    .put(requestBody);
+
+            Request request;
+            if (headerParams != null) {
+                request = requestBuilder
+                        .headers(Headers.of(headerParams))
+                        .build();
+            } else {
+                request = requestBuilder.build();
+            }
+
+            client.newCall(request).enqueue(callback);
+
+        }).start();
+    }
+
+
+    // patch
+    public static void invokePatch(ServerCommand serverCommand, Object body, Callback callback) {
+        invokePatch(serverCommand, null, body, callback);
+    }
+
+    public static void invokePatch(ServerCommand serverCommand, Map<String, String> queryParams, Object body, Callback callback) {
+        invokePatch(serverCommand, queryParams, null, body, callback);
+    }
+
+    public static void invokePatch(ServerCommand serverCommand, Map<String, String> queryParams, Map<String, String> headerParams, Object body, Callback callback) {
+        new Thread(() -> {
+            HttpUrl.Builder urlBuilder = Objects.requireNonNull(HttpUrl.parse("http://3.131.136.24:8080" + serverCommand.getCommand())).newBuilder();
+            if (queryParams != null) {
+                queryParams.forEach(urlBuilder::addQueryParameter);
+            }
+            HttpUrl url = urlBuilder.build();
+
+            String json = GsonUtil.toJsonString(body);
+
+            RequestBody requestBody = RequestBody.create(json, CONTENT_TYPE_JSON);
+
+            Request.Builder requestBuilder = new Request.Builder()
+                    .url(url)
+                    .patch(requestBody);
+
+            Request request;
+            if (headerParams != null) {
+                request = requestBuilder
+                        .headers(Headers.of(headerParams))
+                        .build();
+            } else {
+                request = requestBuilder.build();
+            }
+
+            client.newCall(request).enqueue(callback);
+
+        }).start();
+    }
+
+
+    // delete
+    public static void invokeDelete(ServerCommand serverCommand, Callback callback) {
+        invokeDelete(serverCommand, null, callback);
+    }
+
+    public static void invokeDelete(ServerCommand serverCommand, Map<String, String> queryParams, Callback callback) {
+        invokeDelete(serverCommand, queryParams, null, callback);
+    }
+
+    public static void invokeDelete(ServerCommand serverCommand, Map<String, String> queryParams, Map<String, String> headerParams, Callback callback) {
+        new Thread(() -> {
+            HttpUrl.Builder urlBuilder = Objects.requireNonNull(HttpUrl.parse("http://3.131.136.24:8080" + serverCommand.getCommand())).newBuilder();
+            if (queryParams != null) {
+                queryParams.forEach(urlBuilder::addQueryParameter);
+            }
+            HttpUrl url = urlBuilder.build();
+
+            Request.Builder requestBuilder = new Request.Builder()
+                    .url(url)
+                    .delete();
+
+            Request request;
+            if (headerParams != null) {
+                request = requestBuilder
+                        .headers(Headers.of(headerParams))
+                        .build();
+            } else {
+                request = requestBuilder.build();
+            }
+            client.newCall(request).enqueue(callback);
+
         }).start();
     }
 
