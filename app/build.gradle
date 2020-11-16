@@ -5,7 +5,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.spirit.cloudpos"
-        minSdkVersion 28
+        minSdkVersion 27
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -35,7 +35,7 @@ dependencies {
     // logger
     implementation 'com.orhanobut:logger:2.2.0'
 
-    implementation 'org.apache.commons:commons-collections4:4.4'
+    implementation("com.google.guava:guava:30.0-android")
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'

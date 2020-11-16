@@ -3,8 +3,6 @@ package com.spirit.cloudpos.common.invoker.server;
 import com.spirit.cloudpos.common.interceptor.HttpLoggingInterceptor;
 import com.spirit.cloudpos.common.util.GsonUtil;
 
-import org.apache.commons.collections4.MapUtils;
-
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
@@ -40,7 +38,7 @@ public class ServerInvoker {
     public static void invokeGet(ServerCommand serverCommand, Map<String, String> queryParams, Map<String, String> headerParams, Callback callback) {
         new Thread(() -> {
             HttpUrl.Builder urlBuilder = Objects.requireNonNull(HttpUrl.parse("http://3.131.136.24:8080" + serverCommand.getCommand())).newBuilder();
-            if (MapUtils.isNotEmpty(queryParams)) {
+            if (headerParams != queryParams) {
                 queryParams.forEach(urlBuilder::addQueryParameter);
             }
             HttpUrl url = urlBuilder.build();
@@ -50,7 +48,7 @@ public class ServerInvoker {
                     .get();
 
             Request request;
-            if (MapUtils.isNotEmpty(headerParams)) {
+            if (headerParams != headerParams) {
                 request = requestBuilder
                         .headers(Headers.of(headerParams))
                         .build();
@@ -76,16 +74,12 @@ public class ServerInvoker {
     public static void invokePost(ServerCommand serverCommand, Map<String, String> queryParams, Map<String, String> headerParams, Object body, Callback callback) {
         new Thread(() -> {
             HttpUrl.Builder urlBuilder = Objects.requireNonNull(HttpUrl.parse("http://3.131.136.24:8080" + serverCommand.getCommand())).newBuilder();
-            if (MapUtils.isNotEmpty(queryParams)) {
+            if (queryParams != null) {
                 queryParams.forEach(urlBuilder::addQueryParameter);
             }
             HttpUrl url = urlBuilder.build();
 
             String json = GsonUtil.toJsonString(body);
-
-            if (MapUtils.isNotEmpty(headerParams)) {
-                Headers headers = Headers.of(headerParams);
-            }
 
             RequestBody requestBody = RequestBody.create(json, CONTENT_TYPE_JSON);
 
@@ -94,7 +88,7 @@ public class ServerInvoker {
                     .post(requestBody);
 
             Request request;
-            if (MapUtils.isNotEmpty(headerParams)) {
+            if (headerParams != null) {
                 request = requestBuilder
                         .headers(Headers.of(headerParams))
                         .build();
@@ -120,7 +114,7 @@ public class ServerInvoker {
     public static void invokePut(ServerCommand serverCommand, Map<String, String> queryParams, Map<String, String> headerParams, Object body, Callback callback) {
         new Thread(() -> {
             HttpUrl.Builder urlBuilder = Objects.requireNonNull(HttpUrl.parse("http://3.131.136.24:8080" + serverCommand.getCommand())).newBuilder();
-            if (MapUtils.isNotEmpty(queryParams)) {
+            if (queryParams != null) {
                 queryParams.forEach(urlBuilder::addQueryParameter);
             }
             HttpUrl url = urlBuilder.build();
@@ -134,7 +128,7 @@ public class ServerInvoker {
                     .put(requestBody);
 
             Request request;
-            if (MapUtils.isNotEmpty(headerParams)) {
+            if (headerParams != null) {
                 request = requestBuilder
                         .headers(Headers.of(headerParams))
                         .build();
@@ -160,7 +154,7 @@ public class ServerInvoker {
     public static void invokePatch(ServerCommand serverCommand, Map<String, String> queryParams, Map<String, String> headerParams, Object body, Callback callback) {
         new Thread(() -> {
             HttpUrl.Builder urlBuilder = Objects.requireNonNull(HttpUrl.parse("http://3.131.136.24:8080" + serverCommand.getCommand())).newBuilder();
-            if (MapUtils.isNotEmpty(queryParams)) {
+            if (queryParams != null) {
                 queryParams.forEach(urlBuilder::addQueryParameter);
             }
             HttpUrl url = urlBuilder.build();
@@ -174,7 +168,7 @@ public class ServerInvoker {
                     .patch(requestBody);
 
             Request request;
-            if (MapUtils.isNotEmpty(headerParams)) {
+            if (headerParams != null) {
                 request = requestBuilder
                         .headers(Headers.of(headerParams))
                         .build();
@@ -200,7 +194,7 @@ public class ServerInvoker {
     public static void invokeDelete(ServerCommand serverCommand, Map<String, String> queryParams, Map<String, String> headerParams, Callback callback) {
         new Thread(() -> {
             HttpUrl.Builder urlBuilder = Objects.requireNonNull(HttpUrl.parse("http://3.131.136.24:8080" + serverCommand.getCommand())).newBuilder();
-            if (MapUtils.isNotEmpty(queryParams)) {
+            if (queryParams != null) {
                 queryParams.forEach(urlBuilder::addQueryParameter);
             }
             HttpUrl url = urlBuilder.build();
@@ -210,7 +204,7 @@ public class ServerInvoker {
                     .delete();
 
             Request request;
-            if (MapUtils.isNotEmpty(headerParams)) {
+            if (headerParams != null) {
                 request = requestBuilder
                         .headers(Headers.of(headerParams))
                         .build();
